@@ -13,7 +13,7 @@ module.exports = function(n){
 
     implementation.union = function (a, b){
         if(implementation.connected(a, b)){ 
-            console.log('Nodes already connected.');
+            console.log('Nodes already connected.\n');
             return false; 
         }
 
