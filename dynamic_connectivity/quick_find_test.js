@@ -14,4 +14,4 @@ for(var i = 0; i < numberOfUnions; i++){
     console.log('A is ' + a);
     console.log('B is ' + b);
     quickFind.union(a, b);
-};
+}

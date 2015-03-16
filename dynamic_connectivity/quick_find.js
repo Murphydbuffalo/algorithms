@@ -5,7 +5,7 @@ module.exports = function(n){
 
     for(var i = 0; i < n; i++){
         implementation.ids[i] = i;
-    };
+    }
 
     implementation.connected = function(a, b){
         return this.ids[a] === this.ids[b];
@@ -17,11 +17,11 @@ module.exports = function(n){
             return false; 
         }
 
-        var i, b = this.ids[b];
+        var i, bValue = this.ids[b];
 
         for(i = 0; i < this.ids.length; i++){
-            if(this.ids[i] === b){
-                this.ids[i] = this.ids[a]
+            if(this.ids[i] === bValue){
+                this.ids[i] = this.ids[a];
             }
         }
 

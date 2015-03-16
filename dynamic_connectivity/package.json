@@ -1,0 +1,16 @@
+{
+  "name": "dynamic_connectivity",
+  "version": "1.0.0",
+  "description": "Algorithms to solve the dynamic connectivity problem.",
+  "main": "quick_union_test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "algorithms",
+    "princeton",
+    "javascript"
+  ],
+  "author": "Dan Murphy",
+  "license": "ISC"
+}
