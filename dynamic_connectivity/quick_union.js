@@ -1,4 +1,4 @@
-var implementation, i, position, parent, root, rootOfA, rootOfB;
+var implementation, i, position, parent, root;
 
 module.exports = function(n){
   'use strict';
