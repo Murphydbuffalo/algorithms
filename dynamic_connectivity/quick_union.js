@@ -8,7 +8,8 @@ module.exports = function(n){
   for(i = 0; i < n; i++){ implementation.ids[i] = i; }
 
   implementation.findRoot = function(index){
-    while(root === undefined){
+    root = null
+    while(root === null){
       parent = this.ids[index];
       if(parent === index){ 
         root = parent;
@@ -20,13 +21,11 @@ module.exports = function(n){
   };
 
   implementation.connected = function(a, b){
-    rootOfA = this.findRoot(a);
-    rootOfB = this.findRoot(b);
-    return rootOfA === rootOfB;
+    return this.findRoot(a) === this.findRoot(b);
   };
 
   implementation.union = function(a, b){ 
-    this.ids[b] = this.ids[a]; 
+    this.ids[this.findRoot(b)] = this.ids[this.findRoot(a)]; 
     return true;
   };
 
