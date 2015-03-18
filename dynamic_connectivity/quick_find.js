@@ -1,38 +1,38 @@
 var implementation, i, index, bValue;
 
 module.exports = function(n){
-    'use strict';
+  'use strict';
 
-    implementation = {ids: new Array(n)};
+  implementation = {ids: new Array(n)};
 
-    for(i = 0; i < n; i++){
-        implementation.ids[i] = i;
+  for(i = 0; i < n; i++){
+    implementation.ids[i] = i;
+  }
+
+  implementation.connected = function(a, b){
+    return this.ids[a] === this.ids[b];
+  };
+
+  implementation.union = function (a, b){
+    if(implementation.connected(a, b)){ 
+      console.log('Nodes already connected.\n');
+      return false; 
     }
 
-    implementation.connected = function(a, b){
-        return this.ids[a] === this.ids[b];
-    };
+    bValue = this.ids[b];
 
-    implementation.union = function (a, b){
-        if(implementation.connected(a, b)){ 
-            console.log('Nodes already connected.\n');
-            return false; 
-        }
+    for(index = 0; i < this.ids.length; i++){
+      if(this.ids[i] === bValue){
+          this.ids[i] = this.ids[a];
+      }
+    }
 
-        bValue = this.ids[b];
+    console.log('New IDs array:');
+    console.dir(this.ids);
+    console.log('\n');
 
-        for(index = 0; i < this.ids.length; i++){
-            if(this.ids[i] === bValue){
-                this.ids[i] = this.ids[a];
-            }
-        }
+    return true;
+  };
 
-        console.log('New IDs array:');
-        console.dir(this.ids);
-        console.log('\n');
-
-        return true;
-    };
-
-    return implementation;
+  return implementation;
 };

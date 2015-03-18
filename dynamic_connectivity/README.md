@@ -8,15 +8,15 @@ Real-world domains where the dynamic connectivity problem rears its head include
 
 + Social networks - who is friends with who?
 + Computer networking - in a network built on the TCP/IP protocols which computers are connected?
-+ And digital photography - how are pixels grouped together?
++ And digital photography - which pixels are grouped together?
 
 ## Solutions
-
-The following descriptions of each algorithm are meant to give background to the code. To run benchmarked implementations of each algorithm run `node quick_find_test.js <N>`, `node quick_union_test.js <N>` or `node weighted_quick_union_test.js <N>`, where the parameter N will be the number of elements in the array of IDs.
 
 All of the solutions presented here will use an array of **N** integers with the *0-based index* of each value in the array corresponding to a single node. To begin the value of each element in the array will equal its 0-based index, and these values will be referred to as *IDs*. 
 
 The meaning of these values differs by the algorithm implemented. For the **quick-find** algorithm the array contains the integer IDs of the connected components. All nodes in a connected component will have the same value, and to start no nodes are connected, so each has its own ID. For the **quick-union** algorithms connected components are organized into tree structures and the array contains the IDs of a node's root node (more on this later).  
+
+To run benchmarked implementations of each algorithm run `node quick_find_test.js <N>`, `node quick_union_test.js <N>` or `node weighted_quick_union_test.js <N>`, where the parameter N will be the number of elements in the array of IDs.
 
 ### Quick-find 
 
@@ -34,7 +34,7 @@ Even with a very powerful computer this algorithm would likely do us no good, wh
 
 ### Quick-union
 
-With the quick-union approach we organize connected components into trees where every node has either a parent node, or is the root node of the tree. All connected nodes will have the same root. **A non-root node's value will be a reference to the 0-based index of its direct parent**, which will in turn referene its parent node's position in the array until the root node is reached.
+With the quick-union approach we organize connected components into trees where every node has either a parent node, or is the root node of the tree. All connected nodes will have the same root. **A non-root node's value will be a reference to the 0-based index of its direct parent**, which will in turn reference its parent node's position in the array until the root node is reached.
 
 Calling `union(a, b)` makes the second node a child of the first, effectively giving the second node and all of its connected nodes the same root as the first node. This means that in any call to `union(a, b)` only one ID ever needs to be changed, allowing the function to complete in linear (N) time in the worst case scenario (having to traverse the entire array to find that first node and switch its ID).
 
