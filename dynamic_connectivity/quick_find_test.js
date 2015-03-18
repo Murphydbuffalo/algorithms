@@ -21,6 +21,9 @@ for(i = 0; i < (n - 1); i++){
   b = randomNode();
   console.log('Performing union on ' + a + ' and ' + b);
   quickFind.union(a, b);
+  console.log('New IDs array:');
+  console.dir(quickFind.ids);
+  console.log('\n');
 }
 
 t1 = benchmark();

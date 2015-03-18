@@ -27,10 +27,6 @@ module.exports = function(n){
       }
     }
 
-    console.log('New IDs array:');
-    console.dir(this.ids);
-    console.log('\n');
-
     return true;
   };
 
