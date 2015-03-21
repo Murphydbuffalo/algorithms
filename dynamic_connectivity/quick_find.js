@@ -1,4 +1,4 @@
-var implementation, i, index, aValue, bValue;
+var implementation, i, index, bValue;
 
 module.exports = function(n){
   'use strict';
