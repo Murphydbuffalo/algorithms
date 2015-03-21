@@ -1,4 +1,4 @@
-var implementation, i, index, bValue;
+var implementation, i, index, aValue, bValue;
 
 module.exports = function(n){
   'use strict';
@@ -21,9 +21,9 @@ module.exports = function(n){
 
     bValue = this.ids[b];
 
-    for(index = 0; i < this.ids.length; i++){
-      if(this.ids[i] === bValue){
-          this.ids[i] = this.ids[a];
+    for(index = 0; index < this.ids.length; index++){
+      if(this.ids[index] === bValue){
+        this.ids[index] = this.ids[a];
       }
     }
 
