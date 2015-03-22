@@ -1,25 +1,19 @@
-var implementation, i, position, parent, root, count, treeA, treeB;
+var implementation, i, size, rootA, rootB;
 
 module.exports = function(n){
   'use strict';
 
-  implementation = { ids: new Array(n) };
+  implementation = { ids: new Array(n), size: [] };
 
-  for(i = 0; i < n; i++){ implementation.ids[i] = i; }
+  for(i = 0; i < n; i++){ 
+    implementation.ids[i] = i; 
+    implementation.size[i] = 1;
+  }
 
-  implementation.tree = function(index){
-    root = null;
-    count = 1;
-    while(root === null){
-      parent = this.ids[index];
-      if(parent === index){ 
-        root = parent;
-        return { root: root, size: count };
-      } else {
-        count++;
-        index = parent;
-      }
-    }
+  implementation.findRoot = function(index){
+    while(index !== this.ids[index]){ index = this.ids[index]; }
+
+    return index;
   };
 
   implementation.connected = function(a, b){
@@ -27,12 +21,20 @@ module.exports = function(n){
   };
 
   implementation.union = function(a, b){
-    treeA = this.tree(a);
-    treeB = this.tree(b);
-    if(treeA.size >= treeB.size){
-      return this.ids[treeB.root] = this.ids[treeA.root]; 
+    rootA = this.findRoot(a);
+    rootB = this.findRoot(b);
+
+    /*
+      Weighting: always make the smaller tree
+      a child of the larger tree to minimize the
+      total height of the combined tree.
+    */
+    if(this.size[rootA] >= this.size[rootB]){
+      this.size[rootA] += this.size[rootB];
+      return this.ids[rootB] = rootA; 
     } else {
-      return this.ids[treeA.root] = this.ids[treeB.root]; 
+      this.size[rootB] += this.size[rootA];
+      return this.ids[rootA] = rootB; 
     }
   };
 
