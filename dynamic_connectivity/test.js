@@ -6,7 +6,7 @@ quickFind, randomNode, i, a, b, t0, t1, timeElapsed;
 benchmark = require('performance-now');
 algorithm = process.argv[2];
 n = process.argv[3];
-implementation = require('./' + algorithm.replace('-', '_'))(n);
+implementation = require('./' + algorithm.replace(/-/g, '_'))(n);
 
 randomNode = function(){
   return Math.floor(Math.random() * implementation.ids.length);
