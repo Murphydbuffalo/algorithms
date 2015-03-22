@@ -1,4 +1,4 @@
-var implementation, i, position, parent, root;
+var implementation, i, rootA, rootB;
 
 module.exports = function(n){
   'use strict';
@@ -8,16 +8,9 @@ module.exports = function(n){
   for(i = 0; i < n; i++){ implementation.ids[i] = i; }
 
   implementation.findRoot = function(index){
-    root = null;
-    while(root === null){
-      parent = this.ids[index];
-      if(parent === index){ 
-        root = parent;
-        return root;
-      } else {
-        index = parent;
-      }
-    }
+    while(this.ids[index] !== index){ index = this.ids[index]; }
+    
+    return index;
   };
 
   implementation.connected = function(a, b){
@@ -25,8 +18,14 @@ module.exports = function(n){
   };
 
   implementation.union = function(a, b){ 
-    this.ids[this.findRoot(b)] = this.ids[this.findRoot(a)]; 
-    return true;
+    rootA = this.findRoot(a); 
+    rootB = this.findRoot(b); 
+
+    if(rootA === rootB){
+      return false;
+    } else {
+      return this.ids[rootB] = rootA;
+    }
   };
 
   return implementation;
