@@ -1,17 +1,19 @@
 'use strict';
 
-var benchmark, n, quickUnion, randomNode, i, a, b, t0, t1, timeElapsed;
+var benchmark, algorithm, implementation, n, 
+quickFind, randomNode, i, a, b, t0, t1, timeElapsed;
 
 benchmark = require('performance-now');
-n = process.argv[2];
-quickUnion = require('./quick_union')(n);
+algorithm = process.argv[2];
+n = process.argv[3];
+implementation = require('./' + algorithm.replace('-', '_'))(n);
 
 randomNode = function(){
-  return Math.floor(Math.random() * quickUnion.ids.length);
+  return Math.floor(Math.random() * implementation.ids.length);
 };
 
 console.log('Orginal set of IDs:');
-console.dir(quickUnion.ids);
+console.dir(implementation.ids);
 console.log('\n');
 
 t0 = benchmark();
@@ -20,9 +22,9 @@ for(i = 0; i < (n - 1); i++){
   a = randomNode();
   b = randomNode();
   console.log('Performing union on ' + a + ' and ' + b);
-  quickUnion.union(a, b);
+  implementation.union(a, b);
   console.log('New IDs array:');
-  console.dir(quickUnion.ids);
+  console.dir(implementation.ids);
   console.log('\n');
 }
 
@@ -34,4 +36,4 @@ if((t1 - t0) < 1000){
   timeElapsed = '' + (t1 - t0)/1000 + ' seconds'; 
 }
 
-console.log('The quick-union algorithm took ' + timeElapsed + ' to run for a ' + n + ' element array.');
+console.log('The ' + algorithm + ' algorithm took ' + timeElapsed + ' to run for a ' + n + ' element array.');
