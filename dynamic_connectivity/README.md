@@ -50,3 +50,7 @@ To improve the performance of quick-union's `connected(a, b)` function we can us
 By always moving the smaller tree (connected component) under the larger we minimize the depth of the combined tree and therefore make the `connected(a,b)` operation faster by reducing the number of operations needed to find the root of the tree. 
 
 This implementation entails moving the root of the smaller tree underneath **the root** of the larger, so you are only ever connecting roots. If the trees being connected are of the same size then we will make the second tree a child of the first.
+
+### Weighted quick-union with path compression
+
+The final iteration of the quick-union algorithm adds *path compression* to the implementation. Path compression means everey time you traverse a tree to find its root, you assign the ID of each node to that of its parent. This incurs only a constant time cost, as the algorithm is already navigating up each node of the tree and now simply needs to assign each node's ID. The benefit of doing so is greatly improved lookup time in subsequent traversals of the tree, because node's will reference the root more quickly as a result of referencing their parent's ID (which in turn references its parent's ID, etc.). This algorithm has a **log 2N** big-O notation, making it highly scalable for large data sets. Whoohoo!
