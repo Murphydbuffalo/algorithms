@@ -10,13 +10,16 @@ Real-world domains where the dynamic connectivity problem rears its head include
 + Computer networking - in a network built on the TCP/IP protocols which computers are connected?
 + And digital photography - which pixels are grouped together?
 
+## To-Do
+Add a test suite.
+
 ## Solutions
 
 All of the solutions presented here will use an array of **N** integers with the *0-based index* of each value in the array corresponding to a single node. To begin the value of each element in the array will equal its 0-based index, and these values will be referred to as *IDs*. 
 
 The meaning of these values differs by the algorithm implemented. For the **quick-find** algorithm the array contains the integer IDs of the connected components. All nodes in a connected component will have the same value, and to start no nodes are connected, so each has its own ID. For the **quick-union** algorithms connected components are organized into tree structures and the array contains the IDs of a node's root node (more on this later).  
 
-To run benchmarked implementations of each algorithm run `node test.js <algorith_name> <N>`, where <algorithm_name> is either 'quick-find', 'quick-union', or 'weighted-quick-union', and <N> is the number of elements in the array of IDs.
+To run benchmarked implementations of each algorithm run `node benchmark.js <algorith_name> <N>`, where <algorithm_name> is either 'quick-find', 'quick-union', or 'weighted-quick-union', and <N> is the number of elements in the array of IDs.
 
 ### Quick-find 
 
