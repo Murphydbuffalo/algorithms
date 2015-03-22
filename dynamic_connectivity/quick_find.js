@@ -1,4 +1,4 @@
-var implementation, i, index, bValue;
+var implementation, i, index, aValue, bValue;
 
 module.exports = function(n){
   'use strict';
@@ -14,16 +14,12 @@ module.exports = function(n){
   };
 
   implementation.union = function (a, b){
-    if(implementation.connected(a, b)){ 
-      console.log('Nodes already connected.\n');
-      return false; 
-    }
-
+    aValue = this.ids[a];
     bValue = this.ids[b];
 
     for(index = 0; index < this.ids.length; index++){
       if(this.ids[index] === bValue){
-        this.ids[index] = this.ids[a];
+        this.ids[index] = aValue;
       }
     }
 
