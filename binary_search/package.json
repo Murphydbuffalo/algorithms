@@ -1,0 +1,19 @@
+{
+  "name": "binary_search",
+  "version": "1.0.0",
+  "description": "Implementation of binary search.",
+  "main": "benchmark.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "algorithms",
+    "binary",
+    "search"
+  ],
+  "author": "Dan Murphy",
+  "license": "ISC",
+  "dependencies": {
+    "performance-now": "^0.2.0"
+  }
+}
