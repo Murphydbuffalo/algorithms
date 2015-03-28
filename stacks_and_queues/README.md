@@ -12,7 +12,15 @@ Below are two implementations which set out to satisfy the following API:
 
 - `size()`
 
-## A linked list implementation
+### A linked list implementation
+
+Linked lists are a data structure where each element in the list is comprised of two properties: one containing the value held by that element, and another containing a pointer or reference to the next element in the list.
+
+Linked lists are great for scenarios where you need to perform many updates to your data set, either deletions or insertions, and where the order of the elements if significant. A great example is the to-do list [example](http://programmers.stackexchange.com/questions/128520/what-are-concrete-examples-of-use-cases-of-linked-lists), where you need to repeatedly add and remove items from your to-do list, and where some errands must be run following other specific errands. 
+
+The advantage linked lists provide for repeated updates is that they don't need to re-order the entire data set in memory when an element is added or removed. Arrays do need to do this, making insertions and deletions expensive. However, linked lists are not as efficient as arrays when iterating over an entire collection and require more memory as they have the overhead of creating a pointer to the next element in the list.
+
+A big caveat for using linked lists is their inability to quickly find the value at a given index as an array can. Arrays can find a random element by index in constant time, whereas in the worst case scenario a linked list requires linear time to do so. For example with a linked list if you need to retrieve the 5,000th element in a 50,000 element long list you must traverse 5,000 elements in from the first element.
 
 - Constructor: assigns `last` to null.
 
@@ -26,7 +34,7 @@ Below are two implementations which set out to satisfy the following API:
 
 - size(): If `isEmpty()` return 0, else create a `counter` variable with a value of 1 and a `currentNode` variable assigned to `last`. Increment the counter and reassign `currentNode` every time `currentNode.prev` is not null, else return `counter`.
 
-## An array implementation
+### An array implementation
 
 First some background on arrays. Java and C-family arrays are **static**, they need to be instantiated at a specific length and you can't resize them. There are already implementations in Java for dynamic arrays, but if you're using the default array class you'll need to implement resizing yourself. Why does this matter for higher level languages like Ruby, Python and JavaScript? Well, they are written in or implemented in lower-level languages like C and C++, so it's good to know what's going on under the hood. Although we (or is that just me?) seldom think about the underlying implementation of arrays in higher level languages such as JavaScript the details are actually important to consider. 
 
@@ -48,7 +56,7 @@ Now, without further adieu, on to the implementation of a stack with dynamically
 
 - size(): return N
 
-## Implementing a dynamic (automatically resized) array using static arrays
+### Implementing a dynamic (automatically resized) array using static arrays
 
 Resizing a static array entails creating a new array of the desired size and then copying each item from the original array over to the new array. This is an expensive operation and so we don't want to have to perform the operation frequently. Doubling the array size on `push()` when the array is full (`N == array.length - 1`) will allow many more `push()` operations before another increase in array size is required. Similarly halving the array size on `pop()` when the array is only a quarter full (`N == array.length / 4`) will allow for many `pop()` operations before another reduction in size is required.
 
@@ -56,8 +64,12 @@ Doubling only when the array is full makes intuitive sense (you have no more roo
 
 Thrashing is alternating calls `pop()` and `push()` on a *half-full + 1* array. Calling `pop()` on a half-full + 1 stack halves it, leaving you with a full stack. Subsequently calling `push()` will double the array, making the stack half-full again. This process could repeat many times, being very costly. To avoid thrashing you want the capacity threshold for reducing the size of the array to be different than the resulting capacity from increasing the size of the array.
 
-## Performance comparison on the linked-list and dynamic array implementations of a stack
+### Performance comparison on the linked-list and dynamic array implementations of a stack
 
 This is a case of consistency (linked lists) versus better amortized performance (arrays). Because our dynamic arrays periodically need to perform expensive resizing operations, which involve creating new arrays and copying over all elements from the original array, there are spikes in the time taken to complete `push()` and `pop()` operations when resizing is required.
 
 By contrast, linked lists may have lower average performance, but do not experience the delays caused by resizing. This makes each implementation more appropriate for certain use cases. If it is unacceptable for the client to experience slower performance on any one given operation than linked lists are probably the way to go. If only average performance matters, than our dynamic array implementation is likely preferable.
+
+## Queues
+
+Largely the same for both implementations, see the code. For linked lists make sure you keep a reference to both the first and list elements to avoid needing to traverse the entire list to the element at the opposite end.
