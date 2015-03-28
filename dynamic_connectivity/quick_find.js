@@ -3,7 +3,7 @@ var implementation, i, index, aValue, bValue;
 module.exports = function(n){
   'use strict';
 
-  implementation = {ids: new Array(n)};
+  implementation = { ids: [] };
 
   for(i = 0; i < n; i++){
     implementation.ids[i] = i;
