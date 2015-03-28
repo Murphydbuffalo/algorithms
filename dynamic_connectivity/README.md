@@ -11,7 +11,8 @@ Real-world domains where the dynamic connectivity problem rears its head include
 + And digital photography - which pixels are grouped together?
 
 ## To-Do
-Add a test suite.
++ Add a test suite.
++ Add a description of and solution to the percolation problem.
 
 ## Solutions
 
@@ -54,3 +55,7 @@ This implementation entails moving the root of the smaller tree underneath **the
 ### Weighted quick-union with path compression
 
 The final iteration of the quick-union algorithm adds *path compression* to the implementation. Path compression means everey time you traverse a tree to find its root, you assign the ID of each node to that of its parent. This incurs only a constant time cost, as the algorithm is already navigating up each node of the tree and now simply needs to assign each node's ID. The benefit of doing so is greatly improved lookup time in subsequent traversals of the tree, because node's will reference the root more quickly as a result of referencing their parent's ID (which in turn references its parent's ID, etc.). This algorithm has a **log 2N** big-O notation, making it highly scalable for large data sets. Whoohoo!
+
+## Percolation: A real-world dynamic connectivity problem
+
+

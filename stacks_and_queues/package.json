@@ -1,0 +1,14 @@
+{
+  "name": "stacks_and_queues",
+  "version": "1.0.0",
+  "description": "Implementations and experiments from Coursera's Princeton Algorithms I course.",
+  "main": "literal_vs_instance.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dan Murphy",
+  "license": "ISC",
+  "dependencies": {
+    "performance-now": "^0.2.0"
+  }
+}
