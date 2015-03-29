@@ -4,35 +4,41 @@
 
 Below are two implementations which set out to satisfy the following API:
 
-- `push()`
+- `push(x)` adds *x* to the stack and returns *x*
 
-- `pop()`
+- `pop()` removes topmost item from the stack and returns that item
 
-- `isEmpty()`
+- `isEmpty()` returns a boolean
 
-- `size()`
+- `size()` returns the number of elements in the stack
 
 ### A linked list implementation
 
-Linked lists are a data structure where each element in the list is comprised of two properties: one containing the value held by that element, and another containing a pointer or reference to the next element in the list.
+Linked lists are a data structure where each element in the list is comprised of two properties: one containing the value associated with that element, and another containing a *pointer* or reference to the next element in the list.
 
-Linked lists are great for scenarios where you need to perform many updates to your data set, either deletions or insertions, and where the order of the elements if significant. A great example is the to-do list [example](http://programmers.stackexchange.com/questions/128520/what-are-concrete-examples-of-use-cases-of-linked-lists), where you need to repeatedly add and remove items from your to-do list, and where some errands must be run following other specific errands. 
+Linked lists are best used in scenarios where you need to perform many updates to your data set, either deletions or insertions, and where the order of the elements if significant. A great example is the to-do list [problem](http://programmers.stackexchange.com/questions/128520/what-are-concrete-examples-of-use-cases-of-linked-lists), where you need to repeatedly add and remove items from your to-do list, and where the errands must be run in a particular order. 
 
-The advantage linked lists provide for repeated updates is that they don't need to re-order the entire data set in memory when an element is added or removed. Arrays do need to do this, making insertions and deletions expensive. However, linked lists are not as efficient as arrays when iterating over an entire collection and require more memory as they have the overhead of creating a pointer to the next element in the list.
+The advantage linked lists provide for repeated updates is that they don't need to re-order the entire data set in memory when an element is added or removed. They only need to update a single element's pointer. This means that inserts and deletions take constant time. 
 
-A big caveat for using linked lists is their inability to quickly find the value at a given index as an array can. Arrays can find a random element by index in constant time, whereas in the worst case scenario a linked list requires linear time to do so. For example with a linked list if you need to retrieve the 5,000th element in a 50,000 element long list you must traverse 5,000 elements in from the first element.
+Arrays on the other hand need to reorder all elements that appear after the element being updated (inserted or deleted), meaning that in the worst case scenario insertions and deletions would take linear time. For example removing the first item in the array means that every other element would need to have its index decremented. That's *n* operations where *n* is the length of the array - linear time. 
 
-- Constructor: assigns `last` to null.
+However, linked lists are not as efficient as arrays when iterating over an entire collection and require more memory as they have the overhead of creating a pointer to the next element in the list. An even bigger caveat for using linked lists is their inability to quickly find the value at a given index as an array can. 
 
-- Node (inner class): an object with an `item` (string) property and a `prev` property which references another `Node` object.
+Arrays can find an element by index in constant time, whereas in the worst case scenario a linked list requires linear time to do so as it can only arrive at a given element by starting at one end of the list and following each reference until the desired valued is found - linear time.
 
-- isEmpty():  Is `last` null?
+So, after all of that, here's an overview of the linked-list implementation:
 
-- push(*string*): Saves a reference to `last` in a new variable, reassigns `last` to a new Node with `item` of *string* and `prev` of the original Node. Returns the value of the new `last` Node's `.string` property.
+- The constructor: assigns `last` to null.
 
-- pop(): Saves a reference to `last.item` in a variable, reassigns `last` to `last.prev` and returns the `item` value that was saved as a variable.
+- Node: an object with an `item` (string) property and a `prev` property which references another `Node` object.
 
-- size(): If `isEmpty()` return 0, else create a `counter` variable with a value of 1 and a `currentNode` variable assigned to `last`. Increment the counter and reassign `currentNode` every time `currentNode.prev` is not null, else return `counter`.
+- `isEmpty()`:  Is `last` null?
+
+- `push(*string*)`: Saves a reference to `last` in a new variable, reassigns `last` to a new Node with `item` of *string* and `prev` of the original Node. Returns the value of the new `last` Node's `.string` property.
+
+- `pop()`: Saves a reference to `last.item` in a variable, reassigns `last` to `last.prev` and returns the `item` value that was saved as a variable.
+
+- `size()`: If `isEmpty()` return 0, else create a `counter` variable with a value of 1 and a `currentNode` variable assigned to `last`. Increment the counter and reassign `currentNode` every time `currentNode.prev` is not null, else return `counter`.
 
 ### An array implementation
 
@@ -48,13 +54,13 @@ Now, without further adieu, on to the implementation of a stack with dynamically
 
 - If we were implementing this is Java (as the Coursera course does) having to pass in a capacity for the array would be a defect. For this assignment you don't want the client to have to pass in an array length. That breaks the API, and more importantly forces the client to choose some amount of memory to allocate for the stack. What if they choose an insufficient amount? Or a humongous amount to be "safe"? A better solution is to implement a **dynamic** array that resizes itself automatically, never allowing the array to restrict the size of the stack, and ensuring that too much memory is never wasted with empty values.
 
-- isEmpty(): N == 0?
+- `isEmpty()`: N == 0?
 
-- push(*string*): Assign `stack[N++]` to *string* (assign then increment).
+- `push(*string*)`: Assign `stack[N++]` to *string* (assign then increment).
 
-- pop(): Assign `stack[N--]` to `null` (assign then decrement) IF N > 0.
+- `pop()`: Assign `stack[N--]` to `null` (assign then decrement) IF N > 0.
 
-- size(): return N
+- `size()`: return N
 
 ### Implementing a dynamic (automatically resized) array using static arrays
 
