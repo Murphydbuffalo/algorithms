@@ -31,10 +31,12 @@ module.exports = function(n){
     */
     if(this.size[rootA] >= this.size[rootB]){
       this.size[rootA] += this.size[rootB];
-      return this.ids[rootB] = rootA; 
+      this.ids[rootB] = rootA; 
+      return this.ids[rootB];
     } else {
       this.size[rootB] += this.size[rootA];
-      return this.ids[rootA] = rootB; 
+      this.ids[rootA] = rootB; 
+      return this.ids[rootA];
     }
   };
 

@@ -15,11 +15,11 @@ benchmark = require('performance-now');
 
 instantiationLog = function(type, time){
   console.log(type + ' instantiation with 50,000 entries took ' + time + ' milliseconds');
-}
+};
 
 accessLog = function(time){
   console.log('And accessing 50,000 "random" entries took ' + time + ' milliseconds\n\n');
-}
+};
 
 /* ========== Literal Array ========== */
 t0 = benchmark();

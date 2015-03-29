@@ -24,7 +24,8 @@ module.exports = function(n){
     if(rootA === rootB){
       return false;
     } else {
-      return this.ids[rootB] = rootA;
+      this.ids[rootB] = rootA;
+      return this.ids[rootB];
     }
   };
 

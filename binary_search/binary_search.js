@@ -6,7 +6,8 @@ module.exports = {
     for(i = 0; i < n; i++){
       arr.push(Math.floor((Math.random() * 10) + 1));
     }
-    return arr = arr.sort();
+    arr = arr.sort();
+    return arr;
   },
 
   find: function(array, value){
