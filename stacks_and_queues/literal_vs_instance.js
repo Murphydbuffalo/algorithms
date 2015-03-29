@@ -93,7 +93,7 @@ for(i = 0; i < 50000; i++){
 
 t1 = benchmark();
 
-instantiationLog('Literal array with known size', (t1 - t0));
+instantiationLog('Instance of array with known size', (t1 - t0));
 
 t0 = benchmark();
 
