@@ -1,4 +1,5 @@
-# Bags, stacks and queues
+# Stacks, queues and Djikstra's algorithm
+Run `node djikstra.js` to execute an implementation of Djikstra's algorithm using stacks constructed from linked lists. An array implementation in Java is discussed below in order to examine how static arrays are made to be dynamic. But no array implementation is actually provided as JavaScript arrays are dynamic by default already meet the criteria for fulfilling API outlined below.
 
 ## Stacks
 
@@ -84,4 +85,4 @@ Largely the same for both implementations, see the code. For linked lists make s
 
 A way to process arithmetic operations with parentheses using two stacks. It also gives you some insight into how compilers work, processing characters and performing differenct actions based on what that character is.
 
-Djikstra's algorithm has a stack for *operands* (integers or doubles in the simplest case), and parses an input string one character at a time. If a left parentheses is encountered it is ignored, if an operand is encountered it is pushed to the stack, and if a right parentheses is encountered ...magic happens. When you encounter a right parentheses you pop the two most recent operands off of the stack and apply the operator to those operands, with the operator going between the two and the most recenet operand coming after the operator.
+Djikstra's algorithm has a stack for *operands* (integers or doubles in the simplest case) and a stack for *operators* such as +, -, * and /. The algorithm parses an input string one character at a time. If a left parentheses is encountered it is ignored, if an operand or operator is encountered it is pushed to the appropriate stack, and if a right parentheses is encountered ...magic happens! When you encounter a right parentheses you pop the two most recent operands off of the operand stack, pop the most recent operator off of the operator stack and apply that operator to the operands.
