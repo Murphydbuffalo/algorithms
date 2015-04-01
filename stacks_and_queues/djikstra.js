@@ -1,8 +1,10 @@
-var operatorStack, operandStack, benchmark, characters,
-calculate, num1, num2, operator, value, solve, i, t0, t1;
+var operatorStack, operandStack, benchmark,
+characters, calculate, num1, num2, operator,
+result, pattern, solve, i, t0, t1;
 
-operatorStack = require('./linked_list');
-operandStack = require('./linked_list');
+LinkedList = require('./linked_list');
+operatorStack = new LinkedList;
+operandStack = new LinkedList;
 benchmark = require('performance-now');
 
 if(process.argv[2]){
@@ -12,8 +14,8 @@ if(process.argv[2]){
 }
   
 calculate = function(operands, operators){
-  num1 = operands.pop().value;
   num2 = operands.pop().value;
+  num1 = operands.pop().value;
   operator = operators.pop().value;
   result = eval(num1 + operator + num2);
   operands.push(result);
@@ -22,22 +24,19 @@ calculate = function(operands, operators){
 };
 
 solve = function(input){
+  pattern = new RegExp('^[-*/\+]$');
   for(i = 0; i < input.length; i++){
     if(!isNaN(input[i])){
       console.log('Adding ' + input[i] + ' to the operand stack');
       operandStack.push(input[i]);
-    }
-    
-    switch(input[i]){
-      case '+' || '-' || '*' || '/':
-        console.log('Adding ' + input[i] + ' to the operator stack');
-        operatorStack.push(input[i]);
-        break;
-
-      case ')':
-        console.log('Calculating!');
-        calculate(operandStack, operatorStack);
-        break;
+    } 
+    else if(input[i].match(pattern)){
+      console.log('Adding ' + input[i] + ' to the operator stack');
+      operatorStack.push(input[i]);
+    } 
+    else if(input[i] === ')'){
+      console.log('Calculating!');
+      calculate(operandStack, operatorStack);
     }
   }
 };
