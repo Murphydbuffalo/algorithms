@@ -1,9 +1,15 @@
-# Stacks, queues and Djikstra's algorithm
-Run `node djikstra.js` to execute an implementation of Djikstra's algorithm using stacks constructed from linked lists. An array implementation in Java is discussed below in order to examine how static arrays are made to be dynamic. But no array implementation is actually provided as JavaScript arrays are dynamic by default already meet the criteria for fulfilling API outlined below.
+# Djikstra's algorithm and Stacks
+
+Djikstra's Algorithm is a way to process arithmetic operations with parentheses using two stack data structures. Beyond performing simple arithmetic, this algorithm gives you some insight into how compilers work, processing characters one at a time and performing different actions based on what that character is.
+
+Djikstra's algorithm has a stack for *operands* (integers or doubles in the simplest case) and a stack for *operators* such as +, -, * and /. The algorithm parses an input string one character at a time. If a left parentheses is encountered it is ignored, if an operand or operator is encountered it is pushed to the appropriate stack, and if a right parentheses is encountered ...magic happens! 
+
+When you encounter a right parentheses you pop the two most recent operands off of the operand stack, pop the most recent operator off of the operator stack and apply that operator to the operands.
+Run `node djikstra.js` to execute an implementation of Djikstra's algorithm using stacks constructed from linked lists. A Java implementation of stacks built with arrays is discussed below in order to examine how static arrays are made to be dynamic. But no array implementation is actually provided as JavaScript arrays are dynamic by default  and already meet the criteria for fulfilling API outlined below.
 
 ## Stacks
 
-Below are two implementations which set out to satisfy the following API:
+The stack data structure is a collection of values with a "last in, last out" approach to adding a removing values. This means that when an element is added to the stack it becomes the last, or "top", element in the stack, and when an element is removed from the stack it is the last or top element that is removed. For this exercise our stacks should satisfy the following API:
 
 - `push(x)` adds *x* to the stack and returns *x*
 
@@ -21,13 +27,24 @@ Linked lists are best used in scenarios where you need to perform many updates t
 
 The advantage linked lists provide for repeated updates is that they don't need to re-order the entire data set in memory when an element is added or removed. They only need to update a single element's pointer. This means that inserts and deletions take constant time. 
 
-Arrays on the other hand need to reorder all elements that appear after the element being updated (inserted or deleted), meaning that in the worst case scenario insertions and deletions would take linear time. For example removing the first item in the array means that every other element would need to have its index decremented. That's *n* operations where *n* is the length of the array - linear time. 
+Arrays on the other hand need to reorder all elements that appear after the element being updated (inserted or deleted), meaning that in the worst case scenario insertions and deletions would take linear time. For example, removing the first item in the array means that every other element would need to have its index decremented. That's *n* operations where *n* is the length of the array - linear time. 
 
 However, linked lists are not as efficient as arrays when iterating over an entire collection and require more memory as they have the overhead of creating a pointer to the next element in the list. An even bigger caveat for using linked lists is their inability to quickly find the value at a given index as an array can. 
 
-Arrays can find an element by index in constant time, whereas in the worst case scenario a linked list requires linear time to do so as it can only arrive at a given element by starting at one end of the list and following each reference until the desired valued is found - linear time.
+Arrays can find an element by index in constant time, whereas in the worst case scenario a linked list requires linear time to do so as it can only arrive at a given element by starting at one end of the list and iterating through each element until the desired valued is found - linear time. 
 
-So, after all of that, here's an overview of the linked-list implementation:
+To sum all of that mess up, behold ze table:
+
+#### Worst Case Scenario performance of Arrays and Linked Lists
+
+Data Structure |Search for Value | Find Value at Given Index | Insert or Remove Element
+:-------------:|:---------------:|:-------------------------:|:------------------------:
+Array          | Linear (N)      | Constant (0)              | Linear (N)
+Linked List    | Linear (N)      | Linear (N)                | Constant (0)
+
+Crucial to keep in mind is that even though linked lists can insert and delete        elements anywhere in the list in constant time, they still take linear time to *find* or arrive at that index. Thus, inserting and deleting elements takes roughly the same time with arrays and linked lists: linked lists take linear time to find the appropriate position in the collection and constant time to perform the update. Arrays take constant time to find the position and linear time to perform the update. 
+
+With all of that out of the way, here's an overview of the linked-list implementation:
 
 - The constructor: assigns `last` to null.
 
@@ -76,13 +93,3 @@ Thrashing is alternating calls `pop()` and `push()` on a *half-full + 1* array. 
 This is a case of consistency (linked lists) versus better amortized performance (arrays). Because our dynamic arrays periodically need to perform expensive resizing operations, which involve creating new arrays and copying over all elements from the original array, there are spikes in the time taken to complete `push()` and `pop()` operations when resizing is required.
 
 By contrast, linked lists may have lower average performance, but do not experience the delays caused by resizing. This makes each implementation more appropriate for certain use cases. If it is unacceptable for the client to experience slower performance on any one given operation than linked lists are probably the way to go. If only average performance matters, than our dynamic array implementation is likely preferable.
-
-## Queues
-
-Largely the same for both implementations, see the code. For linked lists make sure you keep a reference to both the first and list elements to avoid needing to traverse the entire list to the element at the opposite end.
-
-## Djikstra's Algorithm
-
-A way to process arithmetic operations with parentheses using two stacks. It also gives you some insight into how compilers work, processing characters and performing differenct actions based on what that character is.
-
-Djikstra's algorithm has a stack for *operands* (integers or doubles in the simplest case) and a stack for *operators* such as +, -, * and /. The algorithm parses an input string one character at a time. If a left parentheses is encountered it is ignored, if an operand or operator is encountered it is pushed to the appropriate stack, and if a right parentheses is encountered ...magic happens! When you encounter a right parentheses you pop the two most recent operands off of the operand stack, pop the most recent operator off of the operator stack and apply that operator to the operands.
