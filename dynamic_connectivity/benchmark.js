@@ -18,6 +18,8 @@ n = process.argv[3];
 implementation = require('./' + algorithm.replace(/-/g, '_'))(n);
 
 randomNode = function(){
+  'use strict';
+
   return Math.floor(Math.random() * implementation.ids.length);
 };
 
@@ -30,8 +32,11 @@ t0 = benchmark();
 for(i = 0; i < (n - 1); i++){
   a = randomNode();
   b = randomNode();
+
   console.log('Performing union on ' + a + ' and ' + b);
+
   implementation.union(a, b);
+  
   console.log('New IDs array:');
   console.dir(implementation.ids);
   console.log('\n');

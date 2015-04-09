@@ -27,8 +27,10 @@ LinkedList.prototype = {
 
   pop: function(){
     if(this.isEmpty()) { return null; }
+
     oldLast = this.lastNode;
     this.lastNode = oldLast.prev;
+
     return oldLast;
   },
 
@@ -37,11 +39,11 @@ LinkedList.prototype = {
 
     count = 1;
     currentNode = this.lastNode;
+    
     while(currentNode.prev !== null){
       currentNode = currentNode.prev; 
       ++count;
     }
-
     return count;
   }
 };

@@ -48,14 +48,17 @@ solve = function(input){
   for(i = 0; i < input.length; i++){
     if(!isNaN(input[i])){
       console.log('Adding ' + input[i] + ' to the operand stack');
+      
       operandStack.push(input[i]);
     } 
     else if(input[i].match(pattern)){
       console.log('Adding ' + input[i] + ' to the operator stack');
+      
       operatorStack.push(input[i]);
     } 
     else if(input[i] === ')'){
       console.log('Calculating!');
+
       calculate(operandStack, operatorStack);
     }
   }
