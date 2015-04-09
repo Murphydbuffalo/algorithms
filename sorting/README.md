@@ -2,7 +2,7 @@
 
 ## A Comparable Interface with `compare` and `swap` Methods
 
-+ `compare(a, b)` should compare `a` and `b` and return either -1, 0 or +1 for `a < b`, `a > b` and `a === b`, respectively.
++ `compare(a, b)` should compare `a` and `b` and return either -1, 0 or +1 for `a < b`, `a === b` and `a > b`, respectively.
 
 + `compare(a, b)` should work for various data types.
 
@@ -10,13 +10,11 @@
 
 ## Selection Sort
 
-+ Iterate through the collection with `i`.
++ Implement a `minimum` method which iterates through the collection and finds the smallest value. This is done by assigning the first value to a variable `min` and `compare`'ing each subsequent value to that variable, reassigning to a lower value if one is encountered.
 
-+ Implement a `minimum` method which iterates through the collection and finds the smallest value. This is done by assigning the first value to a variable `min` and `compare`'ing each subsequent value to that variable, reassigning if a lower value is encountered.
++ For each element in the collection, iterating with the index `i`, call `minimum` to find smallest value between `i` and the end of the array and `swap` with `i`. In effect this will loop over the whole collection, find the smallest value and place it at the beginning of the array, and repeat the process with the subset of the collection to the right of the first element.
 
-+ For each element in the collection find smallest value with `min`, and `swap` with *i*, increment `i`.
-
-+ ~(N^2)/2 time, for each element iterate through all elements in the colletion greater than `i`. As `i` increases that subset of elements decreases in size so that on average `min` must only iterate through N/2 elements.
++ Selection sort takes roughly (N^2)/2 time, as for every element it must iterate through all elements in the colletion greater than the current index, `i`. As `i` increases that subset of elements decreases in size so that on average `minimum` must only iterate through N/2 elements.
 
 It is important to note that whether or not the given array is already sorted the selection short algorithm will *still take quadratic time*. It always scans all elements at indexes greater than `i`, regardless of the order they are in, because it must check for the **minimum** value on each subset of the array and not simply a value that is less than the previous element in the array.
 
@@ -30,19 +28,19 @@ The next algorithm we explore, insertion sort, will do just that, making it sign
 
 This implementation on average takes (N^2/)4 time, but various significantly in performance based on the degree to which the array is already sorted.
 
-Consider situations where a collection of values is for the most part sorted, except for a few elements. Perhaps the collection is periodically sorted meaning that when new data is added without regard to the order of the elements small parts of the collection will be temporarily out of order. 
+Consider situations where a collection of values is for the most part sorted, except for a few elements. In practical terms perhaps the collection is periodically sorted, meaning that when new data is added *without regard to maintaining the sorted order of the array* small parts of the collection will be temporarily out of order. 
 
-In these situations insertion sort completes markedly faster than with totally unsorted data as each inner loop returns *as soon as a smaller value is present to left of the inner index*. Said another way, it doesn't need to search the entire subset of the data for the smallest value, only a value smaller than the current. This approach takes ~N time and ensures a sorted subset of the collection to the left of the index, which grows with each iteration.
+In these situations insertion sort is markedly faster than with unsorted data as each inner loop returns *as soon as a smaller value is present to left of the inner index*. Said another way, insertion sort doesn't need to search the entire subset of the data for the smallest value, it only searches until if finds a value smaller than the current. 
 
-On the other hand a reverse-sorted set of data will require each iteration to move the current element the full length of the subset, all the way to the left of the array. This plays out to ~(N^2)/2 time. 
+With a completely sorted collection insertion sort takes only about N time. On the other hand a reverse-sorted set of data (largest values first) will require each iteration to move the current element the full length of the subset, all the way to the left of the array. This plays out to about (N^2)/2 time, or the same performance profile offered by selection sort regardless of the degree of sorting in the given collection. 
 
 ## Shell Sort
 
-A more complex variant of insertion sort, shell sort (named after its inventor, Donald Shell) performs a series of **h-sorts** that themselves are insertion sorts. H-sorting is a technique where instead of comparing the element immediately previous to the current inner index, `j`, you compare the element `h` indices previous.
+A more complex variant of insertion sort, shell sort (named after its inventor, Donald Shell) performs a series of **h-sorts** which are themselves insertion sorts. H-sorting is a technique where instead of comparing the element immediately previous to the current inner index, `j`, (so that's comparing `j` to the `j - 1`th element) you compare element `j` to the element at `j - h`.
 
-Shell sort begins with a large `h` value, so only a small number of comparisons are made for the intial insertion sort. Each subsequent insertion sort uses a signifcantly smaller `h` value until `h` is 1, meaning that every element is compared to the element immediately on its left.
+Shell sort begins with a large `h` value, so only a small number of comparisons are made for the intial insertion sort. Each subsequent insertion sort uses a signifcantly smaller `h` value until `h` is 1, meaning that every element is compared to the element immediately on its left as is a case in a normal insertion sort.
 
-The mathematically optimal set of `h` values has not yet been proven, but we have ideas of what good sets of `h` values are. A commonly used set is the one generated by Donald Knuth's *3x + 1* equation. This means that the `h` values for an array of length `n` would be 1, 4, 13, 40, 121, etc, continuing until there are no more `h` values less than `n`.
+The mathematically optimal set of `h` values has not yet been proven, but we have ideas of what good sets of `h` values are. A commonly used set is the one generated by Donald Knuth's *3x + 1* factor. This means that the `h` values for an array of length `n` would be 1, 4, 13, 40, 121, etc, continuing until there are no more `h` values less than `n`.
 
 To implement shell sort you must iterate through the collection performing an insertion sort with the largest `h` value as the amount to decrement the inner index `j` by, repeating the process until all `h` values have been used.
 
