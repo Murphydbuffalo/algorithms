@@ -1,4 +1,4 @@
-var implementation, i, size, rootA, rootB;
+var implementation, i, rootA, rootB;
 
 module.exports = function(n){
   'use strict';
@@ -36,11 +36,11 @@ module.exports = function(n){
     if(this.size[rootA] >= this.size[rootB]){
       this.size[rootA] += this.size[rootB];
       this.ids[rootB] = rootA;
-      return this.ids[rootB] 
+      return this.ids[rootB]; 
     } else {
       this.size[rootB] += this.size[rootA];
       this.ids[rootA] = rootB;
-      return this.ids[rootA] 
+      return this.ids[rootA] ;
     }
   };
 

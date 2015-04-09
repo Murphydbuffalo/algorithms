@@ -1,7 +1,8 @@
 var i, arr, low, high, mid;
 
-module.exports = {
+module.exports = {  
   createArray: function(n){
+    'use strict';
     arr = [];
     for(i = 0; i < n; i++){
       arr.push(Math.floor((Math.random() * 10) + 1));
@@ -11,6 +12,7 @@ module.exports = {
   },
 
   find: function(array, value){
+    'use strict';
     low = 0;
     high = array.length - 1;
     while(low + 1 < high){

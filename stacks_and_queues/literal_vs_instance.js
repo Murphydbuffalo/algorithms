@@ -1,7 +1,15 @@
 'use strict';
 
-var literal, object, instance, knownSize, benchmark, instantiationLog,
-accessLog, t0, t1, i, literalTime, objectTime, instanceTime, knownSizeTime;
+var literal,
+    object,
+    instance,
+    knownSize,
+    benchmark,
+    instantiationLog,
+    accessLog,
+    t0,
+    t1,
+    i;
 
 literal = [];
 
@@ -22,6 +30,7 @@ accessLog = function(time){
 };
 
 /* ========== Literal Array ========== */
+/* ========== ============= ========== */
 t0 = benchmark();
 
 for(i = 0; i < 50000; i++){
@@ -42,7 +51,11 @@ t1 = benchmark();
 
 accessLog((t1 - t0));
 
+/* ========== ============= ========== */
+/* ========== ============= ========== */
+
 /* ========== Literal Object ========== */
+/* ========== ============= =========== */
 t0 = benchmark();
 
 for(i = 0; i < 50000; i++){
@@ -63,7 +76,11 @@ t1 = benchmark();
 
 accessLog((t1 - t0));
 
+/* ========== ============= ========== */
+/* ========== ============= ========== */
+
 /* ========== Instance of Array ========== */
+/* ========== ================= ========== */
 t0 = benchmark();
 
 for(i = 0; i < 50000; i++){
@@ -85,6 +102,7 @@ t1 = benchmark();
 accessLog((t1 - t0));
 
 /* ========== Instance of Array with a known size ========== */
+/* ========== =================================== ========== */
 t0 = benchmark();
 
 for(i = 0; i < 50000; i++){

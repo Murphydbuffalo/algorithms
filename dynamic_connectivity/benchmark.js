@@ -1,7 +1,16 @@
 'use strict';
 
-var benchmark, algorithm, implementation, n, 
-quickFind, randomNode, i, a, b, t0, t1, timeElapsed;
+var benchmark,
+    algorithm,
+    implementation,
+    n,
+    randomNode,
+    i,
+    a,
+    b,
+    t0,
+    t1,
+    timeElapsed;
 
 benchmark = require('performance-now');
 algorithm = process.argv[2];
