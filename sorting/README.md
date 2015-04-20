@@ -1,18 +1,18 @@
 # Sorting Algorithms, yo!
+`npm install` and run `node_modules/babel/bin/babel-node benchmark.js <algorithm_name> <array_size>` (you can just use `babel-node` if you have the `babel` module installed globally) to see the performance of a given sorting algorithm for various types of arrays.
 
-## A Comparable Interface with `compare` and `swap` Methods
+`<algorithm_name>` should be either 'selection', 'insertion', or 'shell', for the types of sorting algorithms discussed below. `<array_size` should be the integer size of the arrays that the algorithm you've chosen will need to sort. 
 
-+ `compare(a, b)` should compare `a` and `b` and return either -1, 0 or +1 for `a < b`, `a === b` and `a > b`, respectively.
+Running `benchmark.js` has your chosen algorithm process unsorted, reverse sorted (highest values first), and partially sorted (mostly in order, with some out of order values) array to show how the algorithm's performance characterstics differ with different levels of pre-sorting.
 
-+ `compare(a, b)` should work for various data types.
-
-+ `swap(a, b)` should store value `a` in a variable and then assign `a` to the value of `b` and `b` to the original value of `a` stored in that variable.
 
 ## Selection Sort
 
-+ Implement a `minimum` method which iterates through the collection and finds the smallest value. This is done by assigning the first value to a variable `min` and `compare`'ing each subsequent value to that variable, reassigning to a lower value if one is encountered.
++ Implement a `minimum(index)` method which iterates through the collection from a given index onward and finds the smallest value. This is done by assigning the first value to a variable `min` and comparing each subsequent value to that variable, reassigning to a lower value if one is encountered.
 
-+ For each element in the collection, iterating with the index `i`, call `minimum` to find smallest value between `i` and the end of the array and `swap` with `i`. In effect this will loop over the whole collection, find the smallest value and place it at the beginning of the array, and repeat the process with the subset of the collection to the right of the first element.
++ Implement `swap(a, b)` should store value `a` in a variable and then assign `a` to the value of `b` and `b` to the original value of `a` stored in that variable.
+
++ For each element in the collection, iterating with the index `i`, call `minimum` to find smallest value between `i` and the end of the array and `swap` that minimum value with `i`. In effect this will loop over the whole collection, find the smallest value and place it at the beginning of the array, and repeat the process with the subset of the collection to the right of the first element.
 
 + Selection sort takes roughly (N^2)/2 time, as for every element it must iterate through all elements in the colletion greater than the current index, `i`. As `i` increases that subset of elements decreases in size so that on average `minimum` must only iterate through N/2 elements.
 
