@@ -1,0 +1,15 @@
+{
+  "name": "sorting",
+  "version": "1.0.0",
+  "description": "Sorting algorithms yo!",
+  "main": "benchmark.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dan Murphy",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^5.0.12",
+    "performance-now": "^0.2.0"
+  }
+}
