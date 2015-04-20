@@ -6,7 +6,8 @@ const capitalize = (string) => {
   'use strict';
 
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
+
 const algorithmName = capitalize(process.argv[2]);
 
 const log = (name, time, n) => {
