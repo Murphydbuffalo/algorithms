@@ -1,10 +1,9 @@
 # Sorting Algorithms, yo!
-`npm install` and run `node_modules/babel/bin/babel-node benchmark.js <algorithm_name> <array_size>` (you can just use `babel-node` if you have the `babel` module installed globally) to see the performance of a given sorting algorithm for various types of arrays.
+Running `benchmark.js` will let you see the performance characteristics of different sorting algorithms for partially sorted, unsorted and reverse sorted arrays of integers.
 
-`<algorithm_name>` should be either 'selection', 'insertion', or 'shell', for the types of sorting algorithms discussed below. `<array_size` should be the integer size of the arrays that the algorithm you've chosen will need to sort. 
+`npm install` and run `node_modules/babel/bin/babel-node benchmark.js` (you can just use `babel-node` if you have the `babel` module installed globally). By default this will use the selection sort algorithm (discussed below) on 10 integer long arrays.
 
-Running `benchmark.js` has your chosen algorithm process unsorted, reverse sorted (highest values first), and partially sorted (mostly in order, with some out of order values) array to show how the algorithm's performance characterstics differ with different levels of pre-sorting.
-
+You can pass the name of the algorithm you want to use with the `--algorithm` or `-a` flags. Accepted algorithm names are: 'selection', 'insertion', 'shell', 'merge' and 'quick'. You can pass the desired size of the arrays with the `--number-elements` or `-n` flags. For example `babel-node benchmark.js -a insertion -n 1000` would run insertion sort on 1000 element arrays (partially sorted, unsorted and reverse sorted).
 
 ## Selection Sort
 
@@ -22,9 +21,9 @@ The next algorithm we explore, insertion sort, will do just that, making it sign
 
 ## Insertion Sort
 
-+ Iterate through the array, and `compare` the current element to each element *to the left* in succession, swapping if the larger value is on the right.
++ Iterate through the array, and compare the current element to each element *to the left* in succession, swapping if the larger value is on the right.
 
-+ To do this you'll need an inner loop with a variable, `j` holding the value of the starting index (so equal to `i` from the outer loop) to start. Decrement this inner index after each comparison with `j - 1`.
++ To do this you'll need an inner loop with a variable, `j` holding the value of the starting index (so equal to `i` from the outer loop) to start. Decrement this inner index after each comparison with the element at `j - 1`.
 
 This implementation on average takes (N^2/)4 time, but various significantly in performance based on the degree to which the array is already sorted.
 
