@@ -1,14 +1,14 @@
-module.exports = (type, n) => {
+module.exports = (sorting, n) => {
   'use strict';
 
   let array = [];
   let value; 
 
-  switch(type.toLowerCase()) {
+  switch(sorting.toLowerCase()) {
     case 'unsorted':
       value = (i) => Math.floor(Math.random() * n);
       break;
-    case 'partial':
+    case 'partially sorted':
       value = (i) => {
         if(Math.random() < 0.65){
           return i;
@@ -18,7 +18,7 @@ module.exports = (type, n) => {
       };
 
       break;
-    case 'reverse':
+    case 'reverse sorted':
       value = (i) => n - i;
       break;
     default:

@@ -10,38 +10,39 @@ const capitalize = (string) => {
 
 const algorithmName = capitalize(process.argv[2]);
 
-const log = (name, time, n) => {
-  'use strict';
-
-  console.log(
-    `${name} sort took ${time} seconds to sort a ${n} integer array.\n`
-  );
-};
-
-const types = ['partial', 'unsorted', 'reverse'];
+const types = ['partially sorted', 'unsorted', 'reverse sorted'];
 const length = 3;
 let start, end, duration;
 let i = 0;
 
 for(i; i < length; i++) {
   let array = require('./sortable-array')(types[i], numberOfElements);
-  
-  console.log(`Array sorting type: ${capitalize(types[i])}\n`);
+  let index = 0;
+  let arrayLength = array.length;
+  let originalArrayString = 'Original array:\n[ ';
+  let sortedArrayString = 'Sorted array:\n[ ';
 
-
-  console.log('Original array:');
-  console.dir(array);
-  console.log('\n');
+  for(index = 0; index < arrayLength; index += 10) {
+    originalArrayString += (array.slice(index, index + 10).join(', ') + '\n');
+  }
 
   start = benchmark();
   array = algorithm(array);
   end = benchmark();
 
-  console.log('Sorted array:');
-  console.dir(array);
-  console.log('\n');
+  for(index = 0; index < arrayLength; index += 10) {
+    sortedArrayString += (array.slice(index, index + 10).join(', ') + '\n');
+  }
 
-  duration = (end - start) / 1000;
+  let time = 
+    (end - start) >= 1000 ? 
+    ((end - start) / 1000) + ' seconds': 
+    (end - start) + ' milliseconds';
 
-  log(algorithmName, duration, numberOfElements);
+  console.log(
+    `\n${algorithmName} sort took ${time} to a ${numberOfElements} element ${types[i]} array.\n`
+  );
+  console.log(originalArrayString.slice(0, -1) + ' ]');
+  console.log(sortedArrayString.slice(0, -1) + ' ]');
+  console.log('========================================================\n');
 }
