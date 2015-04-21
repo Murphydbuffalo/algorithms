@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const benchmark = require('performance-now');
 const options = {};
 const args = process.argv.slice(2);
@@ -7,16 +9,25 @@ for(let i = 0; i < args.length; i += 2) {
 }
 
 const algorithmName = options['--algorithm'] || options['-a'] || 'selection';
-
-const algorithm = require('./' + algorithmName + '-sort');
-
-const numberOfElements = options['--number-elements'] || options['-n'] || 10;
-
+const fileName = path.join(__dirname, algorithmName + '-sort.js');
 const capitalize = (string) => {
   'use strict';
 
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+let algorithm;
+
+if(fs.existsSync(fileName)) {
+  algorithm = require(fileName);
+} else {
+  const message = 
+    `${capitalize(algorithmName)} sort hasn't been implemented yet. Sadness :^(`;
+
+  throw new Error(message);   
+}
+
+const numberOfElements = options['--number-elements'] || options['-n'] || 10;
 
 const types = ['partially sorted', 'unsorted', 'reverse sorted'];
 const length = types.length;
