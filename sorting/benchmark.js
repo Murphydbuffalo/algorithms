@@ -29,7 +29,30 @@ if(fs.existsSync(fileName)) {
 
 const numberOfElements = options['--number-elements'] || options['-n'] || 10;
 
-const types = ['partially sorted', 'unsorted', 'reverse sorted'];
+let types = [];
+
+switch(options['--array-type'] || options['-t']) {
+  case 'unsorted':
+    types.push('unsorted');
+    break;
+
+  case 'partial':
+    types.push('partially sorted');
+    break;
+
+  case 'reverse':
+    types.push('reverse sorted');
+    break;
+
+  case 'all':
+    types.push('unsorted', 'partially sorted', 'reverse sorted');
+    break;
+
+  default:
+    types.push('unsorted');
+
+}
+
 const length = types.length;
 let i = 0;
 
@@ -39,18 +62,19 @@ for(i; i < length; i++) {
   let originalArrayString = 'Original array:\n[ ';
   let sortedArrayString = 'Sorted array:\n[ ';
 
-  for(let index = 0; index < arrayLength; index += 10) {
-    originalArrayString += (array.slice(index, index + 10).join(', ') + '\n');
+  for(let index = 0; index < arrayLength; index += 15) {
+    originalArrayString += (array.slice(index, index + 15).join(', ') + '\n  ');
   }
 
   let start = benchmark();
   array = algorithm(array);
   let end = benchmark();
 
-  for(let index = 0; index < arrayLength; index += 10) {
-    sortedArrayString += (array.slice(index, index + 10).join(', ') + '\n');
-  }
-
+  
+  for(let index = 0; index < arrayLength; index += 15) {
+    sortedArrayString += (array.slice(index, index + 15).join(', ') + '\n  ');
+  }    
+    
   let time = 
     (end - start) >= 1000 ? 
     ((end - start) / 1000) + ' seconds': 
@@ -59,7 +83,10 @@ for(i; i < length; i++) {
   console.log(
     `\n${capitalize(algorithmName)} sort took ${time} to a ${numberOfElements} element ${types[i]} array.\n`
   );
-  console.log(originalArrayString.slice(0, -1) + ' ]');
-  console.log(sortedArrayString.slice(0, -1) + ' ]');
-  console.log('========================================================\n');
+  
+  if(options.hasOwnProperty('--logging') || options.hasOwnProperty('-l')) {
+    console.log(originalArrayString.slice(0, -4) + ' ]');
+    console.log(sortedArrayString.slice(0, -4) + ' ]');
+    console.log('========================================================\n');
+  }
 }
