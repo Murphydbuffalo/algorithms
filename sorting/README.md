@@ -3,7 +3,17 @@ Running `benchmark.js` will let you see the performance characteristics of diffe
 
 `npm install` and run `node_modules/babel/bin/babel-node benchmark.js` (you can just use `babel-node` if you have the `babel` module installed globally). By default this will use the selection sort algorithm (discussed below) on 10 integer long arrays.
 
-You can pass the name of the algorithm you want to use with the `--algorithm` or `-a` flags. Accepted algorithm names are: 'selection', 'insertion', 'shell', 'merge' and 'quick'. You can pass the desired size of the arrays with the `--number-elements` or `-n` flags. For example `babel-node benchmark.js -a insertion -n 1000` would run insertion sort on 1000 element arrays (partially sorted, unsorted and reverse sorted).
+You can pass a number of options to `benchmark.js`:
+
++ Specify the name of the algorithm you want to use with the `--algorithm` or `-a` flags. Accepted algorithm names are: 'selection', 'insertion', 'shell', 'merge' and 'quick'. 
+
++ Pass the desired size of the arrays to the `--number-elements` or `-n` flags.
+
++ Use `--array-type` or `-t` to specify the degree to which the original array is sorted. Valid options are 'unsorted', 'reverse', 'partial', and 'all'. `--array-type` defaults to 'unsorted'.
+
++ Set the `--logging` or `-l` flag to log out both the original array and the sorted array produced by the algorithm. This is not enabled by default.
+
+For example `babel-node benchmark.js -a insertion -n 1000 -t partial -l` would run insertion sort on a partially sorted 1000 element array, and would display both the original and sorted arrays.
 
 ## Selection Sort
 
