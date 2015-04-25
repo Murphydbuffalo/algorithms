@@ -14,11 +14,9 @@ module.exports = (array) => {
   for(index; index < length; index++) {
     let i = 0;
 
-    for(i; i <= index; i++) {
-      if(array[index] < array[index - i]) {
-        swap(index - i, index);
-        index = index - i;
-        i = 0;
+    for(i; i < index; i++) {
+      if(array[index] < array[i]) {
+        swap(i, index);
       }
     }
   }

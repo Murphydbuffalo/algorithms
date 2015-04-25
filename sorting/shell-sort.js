@@ -31,12 +31,9 @@ module.exports = (array) => {
     for(outerI; outerI < length; outerI++) {
       let innerI = hIndex;
 
-      for(innerI; innerI <= outerI; innerI++) {
-        if(array[outerI] < array[outerI - innerI]) {
-          swap(outerI - innerI, outerI);
-
-          outerI = outerI - innerI;
-          innerI = hIndex;
+      for(innerI; innerI < outerI; innerI++) {
+        if(array[outerI] < array[innerI]) {
+          swap(innerI, outerI);
         }
       }
     }
