@@ -8,8 +8,9 @@ module.exports = (array) => {
     let values = [h];
 
     while( (values[0]) * 3 + 1 < arrayLength ) {
-      values.unshift(h);
       h = (h * 3) + 1;
+
+      values.unshift(h);
     }
 
     return values;
@@ -21,17 +22,18 @@ module.exports = (array) => {
     array[b] = aValue;
   };
 
-  let hIndex = 0;
   const hValues = createHValues(length);
   const hLength = hValues.length;
-  
-  let outerI = 0;
+
+  let hIndex = 0;
 
   for(hIndex; hIndex < hLength; hIndex++) {
-    for(outerI; outerI < length; outerI++) {
-      let innerI = hIndex;
+    let outerI = 0;
 
-      for(innerI; innerI < outerI; innerI++) {
+    for(outerI; outerI < length; outerI++) {
+      let innerI = 0;
+
+      for(innerI; innerI < outerI; innerI += hValues[hIndex]) {
         if(array[outerI] < array[innerI]) {
           swap(innerI, outerI);
         }
