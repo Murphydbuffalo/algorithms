@@ -91,7 +91,7 @@ Better to use an encryption or hashing library that can generate random numbers 
   - Find the angle of the line connecting `p` and the next point, then reassign `p` to the second point.
   - Calculate if the connecting line is a "counter clockwise turn" or a line that doesn't break 180º when compared with the line connecting the next pair of points.
 
-## Merge Sort
+## Mergesort
 A divide-and-conquer algorithm which, depending on your implementation, either recursively splits the given array into two sub-arrays until it is broken down into pairs of elements; or repeatedly iterates over the original array, at first comparing single elements, then pairs, then groups of four, etc., until two halves of the original array are compared. 
 
 With either approach, adjacent sub-arrays are **merged** (and thereby sorted) by using an empty place holder array and comparing the first elements of each  sub-array, assigning the lower of the two values to the new placeholder array, and incrementing the indexes of that placeholder array and the array from which the lower value was taken.
@@ -106,4 +106,28 @@ This procedure is repeated, resulting in increasingly large sorted sub-arrays be
 
 + When merging it's a good idea to first check if the largest item either sub-array is smaller then the smallest item in the other sub-array, saving time on the off chance that your sub-arrays are already sorted.
 
-## Quick Sort (next week)
+## Quicksort
+Quicksort is another high performance divide-and-conquer algorithm. Quicksort, unlike mergesort, is an in-place algorithm, meaning that it doesn't require a placeholder array for storing elements as they are sorted. This greatly reduces the memory requirements of the algorithm, allowing you sort a collection that occupies roughly the amount of free memory in your computer. 
+
+In the average case quicksort is also marginally faster than mergesort (they both run in linearithmic time, but quicksort's coefficient for **N** tends to be lower).  
+
+Quicksort works by **partitioning** the input array by treating the first element in a randomly shuffled array as the separator between two sub-arrays. The left-hand sub-array should be composed entirely of element of lesser value than the separator, and the right-hand sub-array should be composed entirely of elements of greater value than the separator.
+
+To accomplish this quicksort uses two indexes, one located at the final element of the array and one at the first element beyond the separator. These indexes decrement and increment, respectively, until they cross (the upper index goes below the lower index). When either index encounters a value that is inappropriate for its sub-array (either higher or lower than the separator), the index stops decrementing/incrementing. When both indexes have stopped at inappropriate value, they swap those values.
+
+This process of partitioning is then recursively repeated on each sub-array until the entire original array is sorted.
+
+Quicksort's worst case scenario for time taken to sort is quadratic (N^2) time and occurs when the array is already sorted, or reverse sorted, resulting in either the upper or lower index needing to compare every element in the sub-array to the partition element. For this reason quicksort's input array is actually shuffled before it is sorted.
+
+Much like with mergesort, it is advantageous to use insertion sort on small sub-arrays (say 10 elements or less), to avoid the memory requirements of recursively partitioning a large number of sub-arrays.
+
+## Selection with quicksort/quickselect
+Find or **select** the *kth* largest value in an array. So, `k = 0` is the minimum, `k = array.length - 1` is the maximum, etc.
+
+At first thought you might simply find the minimum or maximum value and discard it `k` times until you've found the `k` largest or smallest value. However, this algorithm would require roughly **0.5 K^2** time to iterate through the entire remainder of the collection `k` times.
+
+A better approch would be to modify quicksort for use a selection algorithm: **quickselect**. Quickselect operates largely the same as quicksort does, however after each partitioning the separator is compared to the value at `array[k]`. 
+
+If the separator is less than `array[k]` quickselect will proceed to partition only the larger (right-hand) sub-array, as it will be guaranteed that only values smaller than the separator (and therefore smaller than `array[k]`) will be in the left-hand sub-array. If the separator is greater than `array[k]` you follow the same reasoning and partition the left-hand sub-array, as you know that only values smaller than the separator will be present there.
+
+If after any partition the separator element is equal to the `array[k]` element being search for the function returns the separator. In this way we can achieve roughly linear time for an implementation of select. 
