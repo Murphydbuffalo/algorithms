@@ -107,19 +107,32 @@ This procedure is repeated, resulting in increasingly large sorted sub-arrays be
 + When merging it's a good idea to first check if the largest item either sub-array is smaller then the smallest item in the other sub-array, saving time on the off chance that your sub-arrays are already sorted.
 
 ## Quicksort
-Quicksort is another high performance divide-and-conquer algorithm. Quicksort, unlike mergesort, is an in-place algorithm, meaning that it doesn't require a placeholder array for storing elements as they are sorted. This greatly reduces the memory requirements of the algorithm, allowing you sort a collection that occupies roughly the amount of free memory in your computer. 
+Quicksort is another high performance divide-and-conquer algorithm, originally developed by [Tony Hoare](http://en.wikipedia.org/wiki/Tony_Hoare). Quicksort, unlike mergesort, is an in-place algorithm, meaning that it doesn't require a placeholder array for storing elements as they are sorted. This greatly reduces the memory requirements of the algorithm, allowing you sort a collection that occupies roughly the amount of free memory in your computer. 
 
 In the average case quicksort is also marginally faster than mergesort (they both run in linearithmic time, but quicksort's coefficient for **N** tends to be lower).  
 
 Quicksort works by **partitioning** the input array by treating the first element in a randomly shuffled array as the separator between two sub-arrays. The left-hand sub-array should be composed entirely of element of lesser value than the separator, and the right-hand sub-array should be composed entirely of elements of greater value than the separator.
 
-To accomplish this quicksort uses two indexes, one located at the final element of the array and one at the first element beyond the separator. These indexes decrement and increment, respectively, until they cross (the upper index goes below the lower index). When either index encounters a value that is inappropriate for its sub-array (either higher or lower than the separator), the index stops decrementing/incrementing. When both indexes have stopped at inappropriate value, they swap those values.
+To accomplish this quicksort uses two indexes, one located at the final element of the array and one at the first element beyond the separator. These indexes decrement and increment, respectively, until they cross (the upper index goes below the lower index). When the high index encounters a value that is less than or equal to the separator the index stops decrementing. Similarly, the lower index stops incrementing when it encounters a value greater than or equal to the separator. When both indexes have stopped at inappropriate value, they swap those values and resume decrementing/incrementing. These swaps ensure the all values higher than the separator are in the right-hand sub-array, and that all values lower than the separator are in the left-hand sub-array.
 
 This process of partitioning is then recursively repeated on each sub-array until the entire original array is sorted.
 
 Quicksort's worst case scenario for time taken to sort is quadratic (N^2) time and occurs when the array is already sorted, or reverse sorted, resulting in either the upper or lower index needing to compare every element in the sub-array to the partition element. For this reason quicksort's input array is actually shuffled before it is sorted.
 
 Much like with mergesort, it is advantageous to use insertion sort on small sub-arrays (say 10 elements or less), to avoid the memory requirements of recursively partitioning a large number of sub-arrays.
+
+## Dealing with large numbers of duplicate values
+A major drawback to the quicksort implementation discussed above is that in scenarios where there are many duplicate values those duplicates will end up (multiple times) in both the left and right-hand sub-arrays and will require further sorting in subsequent partitionings.
+
+This means that for some datasets with many duplicate values quicksort can take nearly quadratic time, even if the array is randomly shuffled.
+
+[Edsger Djikstra](http://en.wikipedia.org/wiki/Edsger_W._Dijkstra), a smart dude, came up with an alternate quicksort implementation featuring **3-way partitioning** that better handles for large numbers of duplicate values.
+
+The 3-way partition approach entails employing three indexes: `l` to mark the upper bound of a left-hand partition used for storing values less than the separator, `r` to mark the lower bound of a right-hand partition used for storing values greater than the separator, and `i` for marking the current element being compared to the separator.
+
+Both the `l` and `i` begin at the 0th element in the shuffled array, which is the separator. `r` begins at the last element. When the element at `i` is equal to the separator (which is always true at the outset of the algorithm), `i` is incremented. When it is less than the separator the `i`th element is swapped with the element at `l` and both `i` and `l` are incremented. When the `i`th element is greater than the separator it is swapped with the element at `r` and `r` is decremented. This procedure continues until `r` and `i` cross, indicating that all element have been compared, and that all elements are in the appropriate partition. 
+
+As with the original implementation of quicksort, recursively repeat this process until the partitions are only single elements, and therefore all elements have been sorted.
 
 ## Selection with quicksort/quickselect
 Find or **select** the *kth* largest value in an array. So, `k = 0` is the minimum, `k = array.length - 1` is the maximum, etc.
