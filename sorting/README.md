@@ -91,6 +91,19 @@ Better to use an encryption or hashing library that can generate random numbers 
   - Find the angle of the line connecting `p` and the next point, then reassign `p` to the second point.
   - Calculate if the connecting line is a "counter clockwise turn" or a line that doesn't break 180º when compared with the line connecting the next pair of points.
 
-## Merge Sort (next week)
+## Merge Sort
+A divide-and-conquer algorithm which, depending on your implementation, either recursively splits the given array into two sub-arrays until it is broken down into pairs of elements; or repeatedly iterates over the original array, at first comparing single elements, then pairs, then groups of four, etc., until two halves of the original array are compared. 
+
+With either approach, adjacent sub-arrays are **merged** (and thereby sorted) by using an empty place holder array and comparing the first elements of each  sub-array, assigning the lower of the two values to the new placeholder array, and incrementing the indexes of that placeholder array and the array from which the lower value was taken.
+
+This procedure is repeated, resulting in increasingly large sorted sub-arrays being merged together until the complete sorted array is created. Some points of interest on mergesort:
+
++ Worst case scenario is *N log(N)*, a linearthmic algorithm. This means your household computer can likely sort an array of billions of elements only a few minutes.
+
++ The main drawback to mergesort is its large memory overhead. Because of the need for a placeholder array equal to the size of the original array, you can effectively sort only a collection half the size of your availabe working memory with mergesort.
+
++ To reduce the memory overhead of mergesort the smallest sub-arrays, say arrays of 7 or 8 elements, can be sorted using another algorithm, such as insertion sort. This saves the creation of many small placeholder arrays which would normally be required to perform each of the merges.
+
++ When merging it's a good idea to first check if the largest item either sub-array is smaller then the smallest item in the other sub-array, saving time on the off chance that your sub-arrays are already sorted.
 
 ## Quick Sort (next week)
