@@ -104,7 +104,7 @@ This procedure is repeated, resulting in increasingly large sorted sub-arrays be
 
 + To reduce the memory overhead of mergesort the smallest sub-arrays, say arrays of 7 or 8 elements, can be sorted using another algorithm, such as insertion sort. This saves the creation of many small placeholder arrays which would normally be required to perform each of the merges.
 
-+ When merging it's a good idea to first check if the largest item either sub-array is smaller then the smallest item in the other sub-array, saving time on the off chance that your sub-arrays are already sorted.
++ When merging it's a good idea to first check if the largest item in either sub-array is smaller then the smallest item in the other sub-array, saving time on the off chance that your sub-arrays are already sorted.
 
 ## Quicksort
 Quicksort is another high performance divide-and-conquer algorithm, originally developed by [Tony Hoare](http://en.wikipedia.org/wiki/Tony_Hoare). Quicksort, unlike mergesort, is an in-place algorithm, meaning that it doesn't require a placeholder array for storing elements as they are sorted. This greatly reduces the memory requirements of the algorithm, allowing you sort a collection that occupies roughly the amount of free memory in your computer. 
