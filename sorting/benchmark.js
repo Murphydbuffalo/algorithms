@@ -22,7 +22,7 @@ if(fs.existsSync(fileName)) {
   algorithm = require(fileName);
 } else {
   const message = 
-    `${capitalize(algorithmName)} sort hasn't been implemented yet. Sadness :^(`;
+    `${capitalize(algorithmName)} sort hasn't been implemented yet. Sadness.`;
 
   throw new Error(message);   
 }
